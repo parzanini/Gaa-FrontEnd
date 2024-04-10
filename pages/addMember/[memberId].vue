@@ -210,6 +210,11 @@
 				TogglePopup("isOpenClose");
 				return;
 				// Check if password and confirm password match
+			} else if (checkPasswordRegex(member.value.password)) {
+				errorMessage.value =
+					"Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number";
+				TogglePopup("isOpenClose");
+				return;
 			} else if (member.value.password !== passwordConfirm.value) {
 				errorMessage.value = "Passwords do not match";
 				TogglePopup("isOpenClose");
@@ -239,6 +244,11 @@
 		} catch (error) {
 			console.error(error);
 		}
+	}
+	// Function to check if password meets requirements
+	function checkPasswordRegex(password) {
+		const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+		return !passwordRegex.test(password);
 	}
 	// Call the getMember function when the component is mounted
 	getMember();

@@ -5,14 +5,11 @@ export const useAuthStore = defineStore({
   id: 'authStore', 
   // State used for login and logout
   state: () => ({
-    token: '',
-    role: '',
-    name: '',
-    isAuthenticated: false
-  }),
-  //State used for event name
-  state: () => ({
-    eventName: ''
+    token: "",
+    role: "",
+    name: "",
+    isAuthenticated: false,
+    eventName: ""
   }),
   actions: {
     // Set the token, role, name and isAuthenticated state when user logs in

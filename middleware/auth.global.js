@@ -4,11 +4,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
     
     const authStore = useAuthStore();
     const role = authStore.getRole;
+    const pathUrl = to.path.toLowerCase();
     // Redirect to login if user is not authenticated
-    if (to.path.startsWith('/dashboard') && role !== "ADMIN") {
+    if (pathUrl.startsWith('/dashboard') && role !== "ADMIN") {
         return navigateTo('/login');
     }
-     if (to.path.startsWith('/userDashboard') && role === "") {
+     if (pathUrl.startsWith('/userdashboard') && role === "") {
         return navigateTo('/login');
     }
 }

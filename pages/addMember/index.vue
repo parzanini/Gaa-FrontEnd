@@ -13,7 +13,7 @@
 				>
 				<input
 					v-model="member.email"
-					type="email"
+					type="text"
 					id="memberEmail"
 					class="text-2x1 rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-white" />
 			</div>
@@ -169,10 +169,10 @@
 			// Check if required fields are empty
 			!member.value.email ||
 			!member.value.password ||
+			!passwordConfirm.value ||
 			!member.value.name ||
-			!member.value.surname ||
-			!passwordConfirm ||
-			!member.value.role
+			!member.value.role ||
+			!member.value.surname
 		) {
 			errorMessage.value = "Please fill in all required fields";
 			TogglePopup("isOpenClose");
@@ -184,10 +184,15 @@
 					member.value.email
 				)
 			) {
-				errorMessage.value = "Invalid email";
+				errorMessage.value = "Please enter a valid email address";
 				TogglePopup("isOpenClose");
 				return;
 				// Check if password and confirm password match
+			} else if (checkPasswordRegex(member.value.password)) {
+				errorMessage.value =
+					"Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number";
+				TogglePopup("isOpenClose");
+				return;
 			} else if (member.value.password !== passwordConfirm.value) {
 				errorMessage.value = "Passwords do not match";
 				TogglePopup("isOpenClose");
@@ -228,6 +233,13 @@
 			console.error(error);
 		}
 	}
+
+	// Function to check if password meets requirements
+	function checkPasswordRegex(password) {
+		const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+		return !passwordRegex.test(password);
+	}
+
 	// Popup component functions
 	const popupTriggers = ref({
 		isOpenClose: false,
