@@ -163,7 +163,7 @@
 	});
 	let passwordConfirm = ref("");
 	let errorMessage = ref("");
-
+	// computed property to convert email to lowercase
 	const lowercaseEmail = computed({
 		get: () => member.value.email,
 		set: (value) => {

@@ -86,7 +86,7 @@
 					>Email*</label
 				>
 				<input
-					v-model="member.email"
+					v-model="lowercaseEmail"
 					type="text"
 					id="email"
 					class="text-2x1 rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-white" />
@@ -151,6 +151,13 @@
 	});
 	let passwordConfirm = ref("");
 	let errorMessage = ref("");
+	// computed property to convert email to lowercase
+	const lowercaseEmail = computed({
+		get: () => member.value.email,
+		set: (value) => {
+			member.value.email = value.toLowerCase();
+		},
+	});
 	// Asyncronous function to submit form
 	async function submitForm() {
 		if (
