@@ -12,7 +12,7 @@
 					>Email*</label
 				>
 				<input
-					v-model="member.email"
+					v-model="lowercaseEmail"
 					type="text"
 					id="memberEmail"
 					class="text-2x1 rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-white" />
@@ -163,6 +163,13 @@
 	});
 	let passwordConfirm = ref("");
 	let errorMessage = ref("");
+
+	const lowercaseEmail = computed({
+		get: () => member.value.email,
+		set: (value) => {
+			member.value.email = value.toLowerCase();
+		},
+	});
 	// Asynchronous function to add a member to the database
 	async function addMember() {
 		if (

@@ -19,7 +19,7 @@
 								>Your email</label
 							>
 							<input
-								v-model="email"
+								v-model="lowercaseEmail"
 								type="email"
 								name="email"
 								id="email"
@@ -82,6 +82,12 @@
 	let password = ref("");
 	const authStore = useAuthStore();
 	let errorMessage = ref("");
+
+	// Computed property to convert email to lowercase
+	const lowercaseEmail = computed({
+		get: () => email.value.toLowerCase(),
+		set: (value) => (email.value = value),
+	});
 
 	// Asyncronous function to submit the form
 	async function submitForm() {
